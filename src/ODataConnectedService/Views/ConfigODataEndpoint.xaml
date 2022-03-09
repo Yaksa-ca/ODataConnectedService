@@ -27,7 +27,7 @@
             Margin="0,5,10,5"
             HorizontalAlignment="Left"
             Text="Service name： " />
-        <Grid Margin="20,5,10,5" HorizontalAlignment="Stretch">
+        <Grid Margin="20,0,10,5" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -84,136 +84,184 @@
                 <TextBlock Text="Browse" />
             </Button>
         </Grid>
+
         <CheckBox
-            x:Name="IncludeHttpHeadersElement"
+            x:Name="IncludeCustomConfigElement"
             Margin="0,15"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="Include Custom Http Headers"
+            Content="Include Custom Config"
             FontWeight="Medium"
-            IsChecked="{Binding Path=UserSettings.IncludeCustomHeaders, Mode=TwoWay}" />
+            IsChecked="{Binding UserSettings.IncludeCustomConfig, Mode=TwoWay}" Checked="IncludeCustomConfigElement_Checked" />
 
-        <StackPanel Margin="20,0,0,0" Visibility="{Binding Path=IsChecked, ElementName=IncludeHttpHeadersElement, Converter={StaticResource BooleanToVisibilityConverter}}">
 
-            <TextBlock
-                x:Name="CustomHttpHeadersLabel"
-                Margin="0,5,10,5"
-                HorizontalAlignment="Left"
-                Text="Custom Headers： " />
-            <TextBox
-                x:Name="CustomHttpHeaders"
-                Width="250"
-                Margin="20,5,10,5"
-                HorizontalAlignment="Left"
-                AcceptsReturn="True"
-                Text="{Binding Path=UserSettings.CustomHttpHeaders, Mode=TwoWay}"
-                TextWrapping="Wrap"
-                VerticalScrollBarVisibility="Visible">
-                <TextBox.ToolTip>
-                    <ToolTip HorizontalAlignment="Center">
-                        <TextBlock>
+        <StackPanel Margin="20,-10,0,0" Visibility="{Binding Path=IsChecked, ElementName=IncludeCustomConfigElement, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid Margin="0,-1,0,0" HorizontalAlignment="Stretch">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <ToggleButton
+                    x:Name="CustomHeadersButton"
+                    Grid.Column="0"
+                    Width="220"
+                    Height="20"
+                    Margin="5,5,0,5"
+                    HorizontalAlignment="Left"
+                    IsEnabled="True"
+                    IsChecked="{Binding UserSettings.CustomHeadersButton, Mode=TwoWay}" Checked="CustomHeadersButton_Checked" Grid.ColumnSpan="3" >
+                    <TextBlock Text="Custom Headers" />
+                </ToggleButton>
+
+                <ToggleButton
+                    x:Name="WebProxyButton"
+                     Grid.Column="1"
+                    Width="220"
+                    Height="20"
+                    Margin="0,5,20,5"
+                    HorizontalAlignment="Right"
+                    IsEnabled="True"
+                    IsChecked="{Binding UserSettings.WebProxyButton, Mode=TwoWay}" Checked="WebProxyButton_Checked" Grid.ColumnSpan="2" >
+                    <TextBlock Text="Web Config" />
+                </ToggleButton>
+            </Grid>
+
+            <StackPanel Name="CustomHeadersStackPanel" Margin="20,0,0,0" Visibility="{Binding Path=IsChecked, ElementName=CustomHeadersButton, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock
+                    x:Name="CustomHttpHeadersLabel"
+                    Margin="0,5,10,5"
+                    HorizontalAlignment="Left"
+                    Text="Custom Headers： " />
+                <TextBox
+                    x:Name="CustomHttpHeaders"
+                    Width="250"
+                    Margin="20,5,10,5"
+                    HorizontalAlignment="Left"
+                    AcceptsReturn="True"
+                    Text="{Binding Path=UserSettings.CustomHttpHeaders, Mode=TwoWay}"
+                    TextWrapping="Wrap"
+                    VerticalScrollBarVisibility="Visible">
+                    <TextBox.ToolTip>
+                        <ToolTip HorizontalAlignment="Center">
+                            <TextBlock>
                             (Optional) We add Http Headers to our http request as a multiline string e.g<LineBreak />
                             HeaderKey1: HeaderValue1<LineBreak />
                             HeaderKey2: HeaderValue2<LineBreak />
-                        </TextBlock>
-                    </ToolTip>
-                </TextBox.ToolTip>
-            </TextBox>
-            <CheckBox
-                x:Name="StoreCustomHttpHeaders"
-                Margin="0,15"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Content="Save custom http headers in ConnectedService.json"
-                FontWeight="Medium"
-                IsChecked="{Binding Path=UserSettings.StoreCustomHttpHeaders, Mode=TwoWay}" />
-        </StackPanel>
+                            </TextBlock>
+                        </ToolTip>
+                    </TextBox.ToolTip>
+                </TextBox>
 
-        <CheckBox
-            x:Name="IncludeWebProxyElement"
-            Margin="0,15"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Include WebProxy"
-            FontWeight="Medium"
-            IsChecked="{Binding Path=UserSettings.IncludeWebProxy, Mode=TwoWay}" />
-
-        <StackPanel Margin="20,0,0,0" Visibility="{Binding Path=IsChecked, ElementName=IncludeWebProxyElement, Converter={StaticResource BooleanToVisibilityConverter}}">
-
-            <StackPanel Margin="0,0,0,0" Orientation="Vertical">
-                <TextBlock
-                    x:Name="HostLabel"
-                    Margin="0,0,5,0"
-                    HorizontalAlignment="Left"
-                    Text="Enter the webproxy host with the port (e.g. http://localhost:8080):" />
-                <TextBox
-                    x:Name="WebProxyHost"
-                    Width="300"
-                    Margin="0,0,0,0"
-                    HorizontalAlignment="Left"
-                    Text="{Binding Path=UserSettings.WebProxyHost, Mode=TwoWay}"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-            <CheckBox
-                x:Name="IncludeWebProxyNetworkCredentialsElement"
-                Margin="0,10"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Content="Include Proxy Network credentials"
-                FontWeight="Medium"
-                IsChecked="{Binding Path=UserSettings.IncludeWebProxyNetworkCredentials, Mode=TwoWay}" />
-            <StackPanel
-                Margin="20,0,0,0"
-                Orientation="Vertical"
-                Visibility="{Binding Path=IsChecked, ElementName=IncludeWebProxyNetworkCredentialsElement, Converter={StaticResource BooleanToVisibilityConverter}}">
-
-                <TextBlock
-                    x:Name="WebProxyNetworkCredentialsUsernameLabel"
-                    Margin="0,10,0,0"
-                    HorizontalAlignment="Left"
-                    Text="Username:" />
-                <TextBox
-                    x:Name="WebProxyNetworkCredentialsUsername"
-                    Width="300"
-                    Margin="0,5,0,0"
-                    HorizontalAlignment="Left"
-                    Text="{Binding Path=UserSettings.WebProxyNetworkCredentialsUsername, Mode=TwoWay}"
-                    TextWrapping="Wrap" />
-
-                <TextBlock
-                    x:Name="WebProxyNetworkCredentialsPasswordLabel"
-                    Margin="0,10,0,0"
-                    HorizontalAlignment="Left"
-                    Text="Password:" />
-                <TextBox
-                    x:Name="WebProxyNetworkCredentialsPassword"
-                    Width="300"
-                    Margin="0,5,0,0"
-                    HorizontalAlignment="Left"
-                    Text="{Binding Path=UserSettings.WebProxyNetworkCredentialsPassword, Mode=TwoWay}"
-                    TextWrapping="Wrap" />
-
-                <TextBlock
-                    x:Name="WebProxyNetworkCredentialsDomainLabel"
-                    Margin="0,10,0,0"
-                    HorizontalAlignment="Left"
-                    Text="Domain:" />
-                <TextBox
-                    x:Name="WebProxyNetworkCredentialsDomain"
-                    Width="300"
-                    Margin="0,5,0,0"
-                    HorizontalAlignment="Left"
-                    Text="{Binding Path=UserSettings.WebProxyNetworkCredentialsDomain, Mode=TwoWay}"
-                    TextWrapping="Wrap" />
                 <CheckBox
-                    x:Name="StoreWebProxyNetworkCredentials"
+                    x:Name="StoreCustomHttpHeaders"
+                    Margin="0,15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="Save custom http headers in ConnectedService.json"
+                    FontWeight="Medium"
+                    IsChecked="{Binding Path=UserSettings.StoreCustomHttpHeaders, Mode=TwoWay}" />
+            </StackPanel>
+
+            <StackPanel Name ="WebProxyStackPanel" Margin="20,0,0,0" Visibility="{Binding Path=IsChecked, ElementName=WebProxyButton, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <StackPanel Margin="0,0,0,0" Orientation="Vertical">
+                    <TextBlock
+                        x:Name="HostLabel"
+                        Margin="0,0,5,0"
+                        HorizontalAlignment="Left"
+                        Text="Enter the webproxy host with the port (e.g. http://localhost:8080):" />
+                    <TextBox
+                        x:Name="WebProxyHost"
+                        Width="300"
+                        Margin="0,0,0,0"
+                        HorizontalAlignment="Left"
+                        Text="{Binding Path=UserSettings.WebProxyHost, Mode=TwoWay}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+
+                <CheckBox
+                    x:Name="IncludeWebProxyNetworkCredentialsElement"
                     Margin="0,10"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Content="Save web proxy credentials in ConnectedService.json"
+                    Content="Include Proxy Network credentials"
                     FontWeight="Medium"
-                    IsChecked="{Binding Path=UserSettings.StoreWebProxyNetworkCredentials, Mode=TwoWay}" />
+                    IsChecked="{Binding Path=UserSettings.IncludeWebProxyNetworkCredentials, Mode=TwoWay}" />
 
+                <StackPanel
+                    Margin="20,0,0,0"
+                    Orientation="Vertical"
+                    Visibility="{Binding Path=IsChecked, ElementName=IncludeWebProxyNetworkCredentialsElement, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width = "Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height = "*" />
+                            <RowDefinition Height = "*" />
+                            <RowDefinition Height = "*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock
+                            x:Name="WebProxyNetworkCredentialsUsernameLabel"
+                            Grid.Row = "0" Grid.Column = "0"
+                            Margin="0,10,0,0"
+                            HorizontalAlignment="Left"
+                            Text="Username:" />
+                        <TextBox
+                            x:Name="WebProxyNetworkCredentialsUsername"
+                            Grid.Row = "0" Grid.Column = "1"
+                            Width="300"
+                            Margin="5,5,0,0"
+                            HorizontalAlignment="Left"
+                            Text="{Binding UserSettings.WebProxyNetworkCredentialsUsername, Mode=TwoWay}"
+                            TextWrapping="Wrap" />
+
+                        <TextBlock
+                            x:Name="WebProxyNetworkCredentialsPasswordLabel"
+                            Grid.Row = "1" Grid.Column = "0"
+                            Margin="0,10,0,0"
+                            HorizontalAlignment="Left"
+                            Text="Password:" />
+                        <TextBox
+                            x:Name="WebProxyNetworkCredentialsPassword"
+                            Grid.Row = "1" Grid.Column = "1"
+                            Width="300"
+                            Margin="5,5,0,0"
+                            HorizontalAlignment="Left"
+                            Text="{Binding UserSettings.WebProxyNetworkCredentialsPassword, Mode=TwoWay}"
+                            TextWrapping="Wrap" />
+
+                        <TextBlock
+                            x:Name="WebProxyNetworkCredentialsDomainLabel"
+                            Grid.Row = "2" Grid.Column = "0"
+                            Margin="0,10,0,0"
+                            HorizontalAlignment="Left"
+                            Text="Domain:" />
+                        <TextBox
+                            x:Name="WebProxyNetworkCredentialsDomain"
+                            Grid.Row = "2" Grid.Column = "1"
+                            Width="300"
+                            Margin="5,5,0,0"
+                            HorizontalAlignment="Left"
+                            Text="{Binding UserSettings.WebProxyNetworkCredentialsDomain, Mode=TwoWay}"
+                            TextWrapping="Wrap" />
+                    </Grid>
+
+                    <CheckBox
+                        x:Name="StoreWebProxyNetworkCredentials"
+                        Margin="0,10"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Content="Save web proxy credentials in ConnectedService.json"
+                        FontWeight="Medium"
+                        IsChecked="{Binding UserSettings.StoreWebProxyNetworkCredentials, Mode=TwoWay}" />
+
+                </StackPanel>
             </StackPanel>
         </StackPanel>
     </StackPanel>
