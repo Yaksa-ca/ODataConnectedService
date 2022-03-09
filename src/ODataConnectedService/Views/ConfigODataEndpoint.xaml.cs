@@ -147,5 +147,26 @@ namespace Microsoft.OData.ConnectedService.Views
         {
             return (ODataConnectedServiceWizard)((ConfigODataEndpointViewModel)this.DataContext).Wizard;
         }
+
+        private void IncludeCustomConfigElement_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CustomHeadersButton_Checked(object sender, RoutedEventArgs e)
+        {
+            CustomHeadersStackPanel.Visibility = Visibility.Visible;
+            WebProxyStackPanel.Visibility = Visibility.Collapsed;
+            WebProxyButton.IsChecked = false;
+
+        }
+
+        private void WebProxyButton_Checked(object sender, RoutedEventArgs e)
+        {
+            CustomHeadersStackPanel.Visibility = Visibility.Collapsed;
+            WebProxyStackPanel.Visibility = Visibility.Visible;
+            CustomHeadersButton.IsChecked = false;
+
+        }
     }
 }
