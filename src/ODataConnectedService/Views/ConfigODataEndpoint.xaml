@@ -92,7 +92,8 @@
             VerticalAlignment="Top"
             Content="Include Custom Config"
             FontWeight="Medium"
-            IsChecked="{Binding UserSettings.IncludeCustomConfig, Mode=TwoWay}" Checked="IncludeCustomConfigElement_Checked" />
+            Checked="IncludeCustomConfigElement_Checked" />
+
 
 
         <StackPanel Margin="20,-10,0,0" Visibility="{Binding Path=IsChecked, ElementName=IncludeCustomConfigElement, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -111,7 +112,7 @@
                     Margin="5,5,0,5"
                     HorizontalAlignment="Left"
                     IsEnabled="True"
-                    IsChecked="{Binding UserSettings.CustomHeadersButton, Mode=TwoWay}" Checked="CustomHeadersButton_Checked" Grid.ColumnSpan="3" >
+                    IsChecked="{Binding UserSettings.IncludeCustomHeaders, Mode=TwoWay}" Checked="CustomHeadersButton_Checked" Grid.ColumnSpan="3" >
                     <TextBlock Text="Custom Headers" />
                 </ToggleButton>
 
@@ -123,7 +124,7 @@
                     Margin="0,5,20,5"
                     HorizontalAlignment="Right"
                     IsEnabled="True"
-                    IsChecked="{Binding UserSettings.WebProxyButton, Mode=TwoWay}" Checked="WebProxyButton_Checked" Grid.ColumnSpan="2" >
+                    IsChecked="{Binding UserSettings.IncludeWebProxy, Mode=TwoWay}" Checked="WebProxyButton_Checked" Grid.ColumnSpan="2" >
                     <TextBlock Text="Web Config" />
                 </ToggleButton>
             </Grid>

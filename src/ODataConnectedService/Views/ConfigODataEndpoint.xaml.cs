@@ -157,7 +157,6 @@ namespace Microsoft.OData.ConnectedService.Views
         {
             CustomHeadersStackPanel.Visibility = Visibility.Visible;
             WebProxyStackPanel.Visibility = Visibility.Collapsed;
-            WebProxyButton.IsChecked = false;
 
         }
 
@@ -165,7 +164,6 @@ namespace Microsoft.OData.ConnectedService.Views
         {
             CustomHeadersStackPanel.Visibility = Visibility.Collapsed;
             WebProxyStackPanel.Visibility = Visibility.Visible;
-            CustomHeadersButton.IsChecked = false;
 
         }
     }
