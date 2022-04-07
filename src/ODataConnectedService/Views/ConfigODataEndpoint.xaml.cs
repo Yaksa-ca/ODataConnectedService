@@ -153,14 +153,14 @@ namespace Microsoft.OData.ConnectedService.Views
 
         }
 
-        private void CustomHeadersButton_Checked(object sender, RoutedEventArgs e)
+        private void CustomHeadersButton_Clicked(object sender, RoutedEventArgs e)
         {
             CustomHeadersStackPanel.Visibility = Visibility.Visible;
             WebProxyStackPanel.Visibility = Visibility.Collapsed;
 
         }
 
-        private void WebProxyButton_Checked(object sender, RoutedEventArgs e)
+        private void WebProxyButton_Clicked(object sender, RoutedEventArgs e)
         {
             CustomHeadersStackPanel.Visibility = Visibility.Collapsed;
             WebProxyStackPanel.Visibility = Visibility.Visible;
