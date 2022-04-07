@@ -88,7 +88,7 @@ namespace Microsoft.OData.ConnectedService.ViewModels
             if (!metadataUri.IsFile)
             {
                 var webRequest = (HttpWebRequest)WebRequest.Create(metadataUri);
-                if (UserSettings.CustomHttpHeaders != null)
+                if (!string.IsNullOrEmpty(UserSettings.CustomHttpHeaders))
                 {
                     var headerElements = UserSettings.CustomHttpHeaders.Split(new [] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (var headerElement in headerElements)
@@ -99,7 +99,7 @@ namespace Microsoft.OData.ConnectedService.ViewModels
                     }
                 }
 
-                if (UserSettings.IncludeWebProxy)
+                if(!string.IsNullOrEmpty(UserSettings.WebProxyHost))
                 {
                     var proxy = new WebProxy(UserSettings.WebProxyHost);
                     if (UserSettings.IncludeWebProxyNetworkCredentials)
