@@ -26,7 +26,7 @@
             x:Name="ServiceName1"
             Margin="0,5,10,5"
             HorizontalAlignment="Left"
-            Text="Service name： " />
+            Text="Service Name： " />
         <Grid Margin="20,0,10,5" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -52,14 +52,14 @@
                 HorizontalAlignment="Right"
                 HorizontalContentAlignment="Center"
                 Click="OpenConnectedServiceJsonFileButton_Click">
-                <TextBlock Text="Load Settings Config file" />
+                <TextBlock Text="Load Settings Config File" />
             </Button>
         </Grid>
         <TextBlock
             x:Name="EndpointLabel"
             Margin="0,5,10,5"
             HorizontalAlignment="Left"
-            Text="Address" />
+            Text="Address : " />
         <Grid Margin="20,5,5,0" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -85,18 +85,7 @@
             </Button>
         </Grid>
 
-        <CheckBox
-            x:Name="IncludeCustomConfigElement"
-            Margin="0,15"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Include Custom Config"
-            FontWeight="Medium"
-            Checked="IncludeCustomConfigElement_Checked" />
-
-
-
-        <StackPanel Margin="20,-10,0,0" Visibility="{Binding Path=IsChecked, ElementName=IncludeCustomConfigElement, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <StackPanel Margin="0,15">
             <Grid Margin="0,-1,0,0" HorizontalAlignment="Stretch">
 
                 <Grid.ColumnDefinitions>
@@ -104,7 +93,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <ToggleButton
+                <Button
                     x:Name="CustomHeadersButton"
                     Grid.Column="0"
                     Width="220"
@@ -112,24 +101,25 @@
                     Margin="5,5,0,5"
                     HorizontalAlignment="Left"
                     IsEnabled="True"
-                    IsChecked="{Binding UserSettings.IncludeCustomHeaders, Mode=TwoWay}" Checked="CustomHeadersButton_Checked" Grid.ColumnSpan="3" >
+                    Click="CustomHeadersButton_Clicked" Grid.ColumnSpan="3">
                     <TextBlock Text="Custom Headers" />
-                </ToggleButton>
+                </Button>
 
-                <ToggleButton
+                <Button
                     x:Name="WebProxyButton"
-                     Grid.Column="1"
+                    Grid.Column="1"
                     Width="220"
                     Height="20"
-                    Margin="0,5,20,5"
+                    Margin="5,5,0,5"
                     HorizontalAlignment="Right"
                     IsEnabled="True"
-                    IsChecked="{Binding UserSettings.IncludeWebProxy, Mode=TwoWay}" Checked="WebProxyButton_Checked" Grid.ColumnSpan="2" >
-                    <TextBlock Text="Web Config" />
-                </ToggleButton>
+                    Click="WebProxyButton_Clicked" Grid.ColumnSpan="2" >
+                    <TextBlock Text="Web Proxy Config" />
+                </Button>
             </Grid>
 
-            <StackPanel Name="CustomHeadersStackPanel" Margin="20,0,0,0" Visibility="{Binding Path=IsChecked, ElementName=CustomHeadersButton, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Name="CustomHeadersStackPanel" Margin="20,0,0,0" Visibility="{Binding Path=ClickMode, ElementName=CustomHeadersButton, Converter={StaticResource BooleanToVisibilityConverter}}">
+
                 <TextBlock
                     x:Name="CustomHttpHeadersLabel"
                     Margin="0,5,10,5"
@@ -160,18 +150,18 @@
                     Margin="0,15"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Content="Save custom http headers in ConnectedService.json"
+                    Content="Save Custom HTTP Headers to Settings Config File"
                     FontWeight="Medium"
                     IsChecked="{Binding Path=UserSettings.StoreCustomHttpHeaders, Mode=TwoWay}" />
             </StackPanel>
 
-            <StackPanel Name ="WebProxyStackPanel" Margin="20,0,0,0" Visibility="{Binding Path=IsChecked, ElementName=WebProxyButton, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Name ="WebProxyStackPanel" Margin="20,0,0,0" Visibility="{Binding Path=ClickMode, ElementName=WebProxyButton, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <StackPanel Margin="0,0,0,0" Orientation="Vertical">
                     <TextBlock
                         x:Name="HostLabel"
                         Margin="0,0,5,0"
                         HorizontalAlignment="Left"
-                        Text="Enter the webproxy host with the port (e.g. http://localhost:8080):" />
+                        Text="Enter the web proxy host and the port (e.g. http://localhost:8080):" />
                     <TextBox
                         x:Name="WebProxyHost"
                         Width="300"
